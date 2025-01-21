@@ -1,38 +1,121 @@
-.App {
+/* General Styling */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(120deg, #74b9ff, #00cec9);
+  color: #2d3436;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: "Indie Flower", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.form-card {
+  background: #ffffff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 90%;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.form-title {
+  font-size: 1.5rem;
+  color: #2d3436;
+  margin-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: #636e72;
 }
 
-.App-link {
-  color: #61dafb;
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dfe6e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #2d3436;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #74b9ff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(116, 185, 255, 0.8);
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dfe6e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #2d3436;
+  font-family: "Indie Flower", sans-serif; /* Font for input and select text */
+}
+
+/* Placeholder Styling for Inputs */
+.form-group input::placeholder {
+  font-family: "Indie Flower", monospace; /* Change placeholder font */
+  font-size: 0.9rem; /* Slightly smaller font size */
+  color: #b2bec3; /* Light gray for placeholder text */
+}
+
+/* Placeholder Styling for Select */
+.form-group select option:first-child {
+  font-family: "Courier New", monospace; /* Change font for select placeholder */
+  color: #b2bec3; /* Light gray for placeholder text */
+}
+
+/* Focus Styling */
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #74b9ff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(116, 185, 255, 0.8);
+}
+.submit-button {
+  width: 100%;
+  padding: 10px 15px;
+  background: #00cec9;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-button:hover {
+  background: #74b9ff;
+}
+
+.result {
+  margin-top: 20px;
+  background: #dfe6e9;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 1rem;
 }
