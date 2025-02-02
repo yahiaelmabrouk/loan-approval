@@ -27,7 +27,7 @@ for col in ['education', 'self_employed', 'loan_status']:
     le = LabelEncoder()
     data[col] = le.fit_transform(data[col])
     label_encoders[col] = le
-
+print(f"Education encoding: {dict(zip(le.classes_, le.transform(le.classes_)))}")
 # Features and Target
 X = data[['no_of_dependents', 'education', 'self_employed', 'income_annum', 
           'loan_amount', 'loan_term', 'cibil_score', 'residential_assets_value',

@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./App.css"; // Import the updated CSS file
+import { Button, Modal, Paper, Typography } from "@mui/material";
+import "./App.css"; // Import the CSS file
 
-function App() {
+export default function App() {
   const [formData, setFormData] = useState({
-    Education: "",
-    Self_Employed: "",
-    ApplicantIncome: "",
-    LoanAmount: "",
-    Loan_Amount_Term: "",
-    Credit_History: "",
+    no_of_dependents: "",
+    education: "Graduate",
+    self_employed: "No",
+    income_annum: "",
+    loan_amount: "",
+    loan_term: "",
+    cibil_score: "",
+    residential_assets_value: "",
+    commercial_assets_value: "",
+    luxury_assets_value: "",
+    bank_asset_value: "",
   });
-
   const [result, setResult] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,125 +28,147 @@ function App() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/predict",
+        "http://127.0.0.1:5000/predict",
         formData
       );
       setResult(response.data.loan_status);
+      setOpen(true);
     } catch (error) {
-      console.error(error);
+      console.error("Prediction Error: ", error);
     }
   };
 
   return (
-    <div className="app-container">
-      <div className="form-card">
-        <h1 className="form-title">Loan Approval Prediction</h1>
+    <div className="container">
+      <Paper elevation={3} className="card">
+        <Typography variant="h5" className="form-title">
+          Loan Prediction Form
+        </Typography>
         <form onSubmit={handleSubmit}>
-          {/* Education Dropdown */}
           <div className="form-group">
-            <label htmlFor="Education">Education</label>
-            <select
-              id="Education"
-              name="Education"
-              value={formData.Education}
+            <label>No. of Dependents</label>
+            <input
+              name="no_of_dependents"
+              type="number"
               onChange={handleChange}
               required
-            >
-              <option value="">Select Education</option>
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Education</label>
+            <select name="education" onChange={handleChange}>
               <option value="Graduate">Graduate</option>
               <option value="Not Graduate">Not Graduate</option>
             </select>
           </div>
 
-          {/* Self Employed Dropdown */}
           <div className="form-group">
-            <label htmlFor="Self_Employed">Self Employed</label>
-            <select
-              id="Self_Employed"
-              name="Self_Employed"
-              value={formData.Self_Employed}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Option</option>
-              <option value="Yes">Yes</option>
+            <label>Self Employed</label>
+            <select name="self_employed" onChange={handleChange}>
               <option value="No">No</option>
+              <option value="Yes">Yes</option>
             </select>
           </div>
 
-          {/* Applicant Income Input */}
           <div className="form-group">
-            <label htmlFor="ApplicantIncome">Applicant Income</label>
+            <label>Annual Income</label>
             <input
+              name="income_annum"
               type="number"
-              id="ApplicantIncome"
-              name="ApplicantIncome"
-              placeholder="Enter your income"
-              value={formData.ApplicantIncome}
               onChange={handleChange}
               required
             />
           </div>
 
-          {/* Loan Amount Input */}
           <div className="form-group">
-            <label htmlFor="LoanAmount">Loan Amount</label>
+            <label>Loan Amount</label>
             <input
+              name="loan_amount"
               type="number"
-              id="LoanAmount"
-              name="LoanAmount"
-              placeholder="Enter loan amount"
-              value={formData.LoanAmount}
               onChange={handleChange}
               required
             />
           </div>
 
-          {/* Loan Amount Term Input */}
           <div className="form-group">
-            <label htmlFor="Loan_Amount_Term">Loan Term (in months)</label>
+            <label>Loan Term</label>
             <input
+              name="loan_term"
               type="number"
-              id="Loan_Amount_Term"
-              name="Loan_Amount_Term"
-              placeholder="Enter loan term in months"
-              value={formData.Loan_Amount_Term}
               onChange={handleChange}
               required
             />
           </div>
 
-          {/* Credit History Dropdown */}
           <div className="form-group">
-            <label htmlFor="Credit_History">Credit History</label>
-            <select
-              id="Credit_History"
-              name="Credit_History"
-              value={formData.Credit_History}
+            <label>CIBIL Score</label>
+            <input
+              name="cibil_score"
+              type="number"
               onChange={handleChange}
               required
-            >
-              <option value="">Select Credit History</option>
-              <option value="1">Good (1)</option>
-              <option value="0">Bad (0)</option>
-            </select>
+            />
           </div>
 
-          {/* Submit Button */}
-          <button type="submit" className="submit-button">
+          <div className="form-group">
+            <label>Residential Assets Value</label>
+            <input
+              name="residential_assets_value"
+              type="number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Commercial Assets Value</label>
+            <input
+              name="commercial_assets_value"
+              type="number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Luxury Assets Value</label>
+            <input
+              name="luxury_assets_value"
+              type="number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Bank Asset Value</label>
+            <input
+              name="bank_asset_value"
+              type="number"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button type="submit" className="submit-btn">
             Predict
           </button>
         </form>
+      </Paper>
 
-        {/* Result Display */}
-        {result && (
-          <div className="result">
-            <strong>Loan Status: {result}</strong>
-          </div>
-        )}
-      </div>
+      {/* Modal for Prediction Result */}
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <div className="modal-container">
+          <Typography variant="h6">Prediction Result</Typography>
+          <Typography>
+            Loan Status: <strong>{result}</strong>
+          </Typography>
+          <button onClick={() => setOpen(false)} className="close-btn">
+            Close
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }
-
-export default App;

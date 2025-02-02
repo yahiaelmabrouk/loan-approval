@@ -1,121 +1,94 @@
-/* General Styling */
+/* App.css */
 body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(120deg, #74b9ff, #00cec9);
-  color: #2d3436;
+}
+
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  font-family: "Indie Flower", serif;
-  font-weight: 400;
-  font-style: normal;
+  min-height: 100vh;
 }
 
-.app-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.form-card {
-  background: #ffffff;
-  padding: 20px 30px;
+.card {
+  background: white;
+  padding: 24px;
   border-radius: 12px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
 }
 
-.form-title {
-  font-size: 1.5rem;
-  color: #2d3436;
-  margin-bottom: 20px;
+h1 {
+  text-align: center;
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 16px;
 }
 
 .form-group {
-  margin-bottom: 15px;
-  text-align: left;
+  margin-bottom: 16px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
-  font-size: 0.9rem;
-  color: #636e72;
+  font-weight: bold;
+  margin-bottom: 4px;
 }
 
 .form-group input,
 .form-group select {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #dfe6e9;
-  border-radius: 8px;
-  font-size: 1rem;
-  color: #2d3436;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-.form-group input:focus,
-.form-group select:focus {
-  border-color: #74b9ff;
-  outline: none;
-  box-shadow: 0 0 4px rgba(116, 185, 255, 0.8);
-}
-.form-group input,
-.form-group select {
+.submit-btn {
   width: 100%;
+  background: #1976d2;
+  color: white;
   padding: 10px;
-  border: 1px solid #dfe6e9;
-  border-radius: 8px;
-  font-size: 1rem;
-  color: #2d3436;
-  font-family: "Indie Flower", sans-serif; /* Font for input and select text */
-}
-
-/* Placeholder Styling for Inputs */
-.form-group input::placeholder {
-  font-family: "Indie Flower", monospace; /* Change placeholder font */
-  font-size: 0.9rem; /* Slightly smaller font size */
-  color: #b2bec3; /* Light gray for placeholder text */
-}
-
-/* Placeholder Styling for Select */
-.form-group select option:first-child {
-  font-family: "Courier New", monospace; /* Change font for select placeholder */
-  color: #b2bec3; /* Light gray for placeholder text */
-}
-
-/* Focus Styling */
-.form-group input:focus,
-.form-group select:focus {
-  border-color: #74b9ff;
-  outline: none;
-  box-shadow: 0 0 4px rgba(116, 185, 255, 0.8);
-}
-.submit-button {
-  width: 100%;
-  padding: 10px 15px;
-  background: #00cec9;
-  color: #ffffff;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s;
+  font-size: 16px;
+  margin-top: 10px;
 }
 
-.submit-button:hover {
-  background: #74b9ff;
+.submit-btn:hover {
+  background: #1565c0;
 }
 
-.result {
-  margin-top: 20px;
-  background: #dfe6e9;
-  padding: 10px;
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
   border-radius: 8px;
-  font-size: 1rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  text-align: center;
+}
+
+.modal-container h2 {
+  margin-bottom: 10px;
+}
+
+.close-btn {
+  margin-top: 12px;
+  background: #d32f2f;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: #b71c1c;
 }

@@ -1,46 +1,65 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-import joblib
-import numpy as np
-from fastapi.middleware.cors import CORSMiddleware
+# from fastapi import FastAPI, HTTPException
+# from pydantic import BaseModel
+# import joblib
+# import numpy as np
+# from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins (change '*' to specific domain like 'http://localhost:3000' for better security)
-    allow_credentials=True,
-    allow_methods=["*"],  # Allows all HTTP methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allows all headers
-)
+# # Initialize FastAPI app
+# app = FastAPI()
 
-# Load Model and Encoders
-model = joblib.load("loan_model.pkl")
-label_encoders = joblib.load("label_encoders.pkl")
+# # Enable CORS for frontend connection
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["*"],  # Consider restricting to specific domains for security
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
-# Input Schema
-class LoanData(BaseModel):
-    Education: str
-    Self_Employed: str
-    ApplicantIncome: float
-    LoanAmount: float
-    Loan_Amount_Term: float
-    Credit_History: float
+# # Load Model and Encoders
+# try:
+#     model = joblib.load("./backend/loan_model.pkl")  # Ensure correct path
+#     label_encoders = joblib.load("./backend/label_encoders.pkl")
+#     print("Encoders Loaded:", label_encoders.keys())
+# except Exception as e:
+#     print("Error loading model or encoders:", str(e))
 
-@app.post("/predict")
-async def predict(data: LoanData):
-    # Convert input to model format
-    input_data = [
-        label_encoders['Education'].transform([data.Education])[0],
-        label_encoders['Self_Employed'].transform([data.Self_Employed])[0],
-        data.ApplicantIncome,
-        data.LoanAmount,
-        data.Loan_Amount_Term,
-        data.Credit_History,
-    ]
-    input_array = np.array(input_data).reshape(1, -1)
+# # Define Input Schema
+# class LoanData(BaseModel):
+#     Education: str
+#     Self_Employed: str
+#     ApplicantIncome: float
+#     LoanAmount: float
+#     Loan_Amount_Term: float
+#     Credit_History: float
 
-    # Predict
-    prediction = model.predict(input_array)[0]
-    prediction_label = label_encoders['Loan_Status'].inverse_transform([prediction])[0]
+# @app.post("/predict")
+# async def predict(data: LoanData):
+#     try:
+#         # Transform categorical inputs using the encoders
+#         education_encoded = label_encoders["education"].transform([data.Education])[0]
+#         self_employed_encoded = label_encoders["self_employed"].transform([data.Self_Employed])[0]
 
-    return {"loan_status": prediction_label}
+#         # Convert input data into model format
+#         input_data = np.array([
+#             education_encoded,
+#             self_employed_encoded,
+#             data.ApplicantIncome,
+#             data.LoanAmount,
+#             data.Loan_Amount_Term,
+#             data.Credit_History
+#         ]).reshape(1, -1)
+
+#         # Predict
+#         prediction = model.predict(input_data)[0]
+
+#         # Convert numerical prediction back to label
+#         if "loan_status" in label_encoders:
+#             prediction_label = label_encoders["loan_status"].inverse_transform([prediction])[0]
+#         else:
+#             prediction_label = str(prediction)  # If encoder missing, return raw prediction
+
+#         return {"loan_status": prediction_label}
+
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f"Prediction Error: {str(e)}")
